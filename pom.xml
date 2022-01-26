@@ -45,6 +45,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
@@ -108,7 +109,7 @@
                 <artifactId>aliyun-sdk-oss</artifactId>
                 <version>${oss.version}</version>
             </dependency>
-            <!--data-->
+            <!--date-->
             <dependency>
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
