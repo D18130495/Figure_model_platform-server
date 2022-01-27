@@ -5,8 +5,8 @@ package com.yushun.figure.common.result;
  */
 public enum ResultCodeEnum {
 
-    SUCCESS(200,"成功"),
-    FAIL(201, "失败");
+    SUCCESS(200,"success"),
+    FAIL(201, "fail");
 
     private Integer code;
     private String message;

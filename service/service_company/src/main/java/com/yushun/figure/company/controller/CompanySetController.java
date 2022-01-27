@@ -53,12 +53,24 @@ public class CompanySetController {
     }
 
     // delete the company(logic)
-    @DeleteMapping("{id}")
+    @DeleteMapping("delete/{id}")
     public Result removeCompanySet(@PathVariable long id) {
         Boolean flag = companySetService.removeById(id);
 
         if(flag) {
             return  Result.ok();
+        }else {
+            return Result.fail();
+        }
+    }
+
+    // delete the batch company by id
+    @DeleteMapping("batchDelete")
+    public Result batchRemoveCompanySet(@RequestBody List<Long> list) {
+        boolean flag = companySetService.removeByIds(list);
+
+        if(flag) {
+            return Result.ok();
         }else {
             return Result.fail();
         }
@@ -79,5 +91,52 @@ public class CompanySetController {
         }else {
             return Result.fail();
         }
+    }
+
+    // get company set by id
+    @GetMapping("getCompanySet/{id}")
+    public Result getCompanySetById(@PathVariable long id) {
+        CompanySet companySet = companySetService.getById(id);
+        return Result.ok(companySet);
+    }
+
+    // update company set by id
+    @PutMapping("updateCompanySet")
+    public Result updateCompanySetById(@RequestBody CompanySet companySet) {
+        Boolean flag = companySetService.updateById(companySet);
+        if(flag) {
+            return Result.ok();
+        }else {
+            return Result.fail();
+        }
+    }
+
+    // company set lock and unlock by id
+    @PutMapping("lockCompanySet/{id}/{status}")
+    public Result lockCompanySet(@PathVariable Long id,
+                                  @PathVariable Integer status) {
+        CompanySet companySet = companySetService.getById(id);
+
+        companySet.setStatus(status);
+
+        boolean flag = companySetService.updateById(companySet);
+
+        if(flag) {
+            return Result.ok();
+        }else {
+            return Result.fail();
+        }
+    }
+
+    // send company set sign key
+    @PutMapping("sendKey/{id}")
+    public Result signKeyCompanySet(@PathVariable Long id) {
+        CompanySet companySet = companySetService.getById(id);
+
+        String compCode = companySet.getCompCode();
+        String signKey = companySet.getSignKey();
+        // TODO send message
+
+        return Result.ok();
     }
 }
