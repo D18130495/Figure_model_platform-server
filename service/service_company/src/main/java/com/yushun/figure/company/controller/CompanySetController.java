@@ -1,6 +1,7 @@
 package com.yushun.figure.company.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yushun.figure.common.result.Result;
 import com.yushun.figure.common.utils.MD5;
@@ -16,6 +17,7 @@ import java.util.Random;
 
 @RestController
 @RequestMapping("/admin/comp/companySet")
+@CrossOrigin
 public class CompanySetController {
 
     @Autowired
@@ -30,7 +32,7 @@ public class CompanySetController {
     }
 
     // get company information pagination
-    @GetMapping("findPage/{current}/{limit}")
+    @PostMapping("findPage/{current}/{limit}")
     public Result findPaginationCompanySet(@PathVariable long current,
                                            @PathVariable long limit,
                                            @RequestBody(required = false) CompanySetQueryVo companySetQueryVo) {
@@ -45,10 +47,10 @@ public class CompanySetController {
         }
 
         if(!StringUtils.isEmpty(compCode)) {
-            wrapper.eq("comp_code", compCode);
+            wrapper.like("comp_code", compCode);
         }
 
-        Page<CompanySet> pageCompanySet = companySetService.page(page, wrapper);
+        IPage<CompanySet> pageCompanySet = companySetService.page(page, wrapper);
         return Result.ok(pageCompanySet);
     }
 
