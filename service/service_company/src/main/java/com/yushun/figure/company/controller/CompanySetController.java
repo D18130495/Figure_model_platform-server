@@ -114,8 +114,8 @@ public class CompanySetController {
     }
 
     // company set lock and unlock by id
-    @PutMapping("lockCompanySet/{id}/{status}")
-    public Result lockCompanySet(@PathVariable Long id,
+    @PutMapping("lockOrUnlockCompanySet/{id}/{status}")
+    public Result lockOrUnlockCompanySet(@PathVariable Long id,
                                   @PathVariable Integer status) {
         CompanySet companySet = companySetService.getById(id);
 
