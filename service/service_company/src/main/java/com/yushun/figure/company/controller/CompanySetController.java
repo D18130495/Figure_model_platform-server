@@ -7,7 +7,7 @@ import com.yushun.figure.common.result.Result;
 import com.yushun.figure.common.utils.MD5;
 import com.yushun.figure.company.service.CompanySetService;
 import com.yushun.figure.model.company.CompanySet;
-import com.yushun.figure.vo.CompanySetQueryVo;
+import com.yushun.figure.vo.company.CompanySetQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;

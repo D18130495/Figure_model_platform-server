@@ -6,6 +6,7 @@ import com.yushun.figure.model.cmn.Dict;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -20,5 +21,10 @@ public class DictController {
     public Result findChildDataById(@PathVariable Long id) {
         List<Dict> list = dictService.findChildData(id);
         return Result.ok(list);
+    }
+
+    @GetMapping("exportData")
+    public void exportDict(HttpServletResponse httpServletResponse) {
+        dictService.exportDictData(httpServletResponse);
     }
 }

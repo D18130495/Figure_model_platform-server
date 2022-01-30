@@ -1,4 +1,4 @@
-package com.yushun.figure.vo;
+package com.yushun.figure.vo.company;
 
 public class CompanySetQueryVo {
     private String compName;
