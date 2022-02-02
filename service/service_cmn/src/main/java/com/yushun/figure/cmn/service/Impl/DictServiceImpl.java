@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements DictService {
     @Override
-    @Cacheable(value = "dict", keyGenerator = "keyGenerator")
+//    @Cacheable(value = "dict", keyGenerator = "keyGenerator")
     public List<Dict> findChildData(Long id) {
         QueryWrapper<Dict> wrapper = new QueryWrapper<Dict>();
         wrapper.eq("parent_id", id);
