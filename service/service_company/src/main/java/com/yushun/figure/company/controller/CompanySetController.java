@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yushun.figure.common.result.Result;
 import com.yushun.figure.common.utils.MD5;
+import com.yushun.figure.company.service.CompanyService;
 import com.yushun.figure.company.service.CompanySetService;
 import com.yushun.figure.model.company.CompanySet;
 import com.yushun.figure.vo.company.CompanySetQueryVo;
@@ -22,6 +23,10 @@ public class CompanySetController {
 
     @Autowired
     private CompanySetService companySetService;
+
+    // use for online or offline company
+    @Autowired
+    private CompanyService companyService;
 
     //http://localhost:8021/admin/comp/companySet/findAll
     // get all the company information
@@ -114,14 +119,16 @@ public class CompanySetController {
     }
 
     // company set lock and unlock by id
-    @PutMapping("lockOrUnlockCompanySet/{id}/{status}")
+    @PutMapping("lockOrUnlockCompanySet/{id}/{compCode}/{status}")
     public Result lockOrUnlockCompanySet(@PathVariable Long id,
+                                  @PathVariable String compCode,
                                   @PathVariable Integer status) {
         CompanySet companySet = companySetService.getById(id);
 
         companySet.setStatus(status);
 
         boolean flag = companySetService.updateById(companySet);
+        companyService.updateCompanyStatus(compCode, status);
 
         if(flag) {
             return Result.ok();

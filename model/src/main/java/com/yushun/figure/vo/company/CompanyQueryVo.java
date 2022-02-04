@@ -1,18 +1,9 @@
-package com.yushun.figure.model.company;
+package com.yushun.figure.vo.company;
 
-import com.yushun.figure.model.base.BaseMongoEntity;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
+public class CompanyQueryVo {
 
-@Document("figure_model")
-public class Company extends BaseMongoEntity {
-	
-	private static final long serialVersionUID = 1L;
-
-	@Indexed(unique = true)
 	private String companyCode;
 
-	@Indexed
 	private String companyName;
 
 	private String companyType;
@@ -25,16 +16,7 @@ public class Company extends BaseMongoEntity {
 
 	private String logoData;
 
-	private String intro;
-
-	// status = "0: offline, 1: online"
 	private Integer status;
-
-	private BookingRule bookingRule;
-
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
 
 	public String getCompanyCode() {
 		return companyCode;
@@ -92,28 +74,12 @@ public class Company extends BaseMongoEntity {
 		this.logoData = logoData;
 	}
 
-	public String getIntro() {
-		return intro;
-	}
-
-	public void setIntro(String intro) {
-		this.intro = intro;
-	}
-
 	public Integer getStatus() {
 		return status;
 	}
 
 	public void setStatus(Integer status) {
 		this.status = status;
-	}
-
-	public BookingRule getBookingRule() {
-		return bookingRule;
-	}
-
-	public void setBookingRule(BookingRule bookingRule) {
-		this.bookingRule = bookingRule;
 	}
 }
 
