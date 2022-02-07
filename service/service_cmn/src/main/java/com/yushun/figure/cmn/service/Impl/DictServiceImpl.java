@@ -1,6 +1,7 @@
 package com.yushun.figure.cmn.service.Impl;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yushun.figure.cmn.mapper.DictMapper;
@@ -54,6 +55,29 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
             EasyExcel.write(httpServletResponse.getOutputStream(), DictExcelVo.class).sheet("Dict").doWrite(dictExcelList);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getDictValue(String dictCode, String value) {
+        if(dictCode.equals("abc")) {
+            QueryWrapper<Dict> wrapper = new QueryWrapper<Dict>();
+            wrapper.eq("id", value);
+            Dict dict = baseMapper.selectOne(wrapper);
+
+            return dict.getName();
+        }else {
+            QueryWrapper<Dict> queryWrapper = new QueryWrapper<Dict>();
+            queryWrapper.eq("dict_code", dictCode);
+            Dict dict = baseMapper.selectOne(queryWrapper);
+            Long dictId = dict.getId();
+
+            QueryWrapper<Dict> wrapper = new QueryWrapper<Dict>();
+            wrapper.eq("parent_id", dictId);
+            wrapper.eq("value", value);
+            Dict finalDict = baseMapper.selectOne(wrapper);
+
+            return finalDict.getName();
         }
     }
 

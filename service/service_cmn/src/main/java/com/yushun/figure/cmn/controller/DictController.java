@@ -6,10 +6,8 @@ import com.yushun.figure.model.cmn.Dict;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/admin/cmn/dict")
@@ -23,6 +21,12 @@ public class DictController {
     public Result findChildDataById(@PathVariable Long id) {
         List<Dict> list = dictService.findChildData(id);
         return Result.ok(list);
+    }
+
+    @GetMapping("/getValue/{dictCode}/{value}")
+    public String getDictValue(@PathVariable String dictCode, @PathVariable String value) {
+        String dictValue = dictService.getDictValue(dictCode, value);
+        return dictValue;
     }
 
     @GetMapping("exportData")

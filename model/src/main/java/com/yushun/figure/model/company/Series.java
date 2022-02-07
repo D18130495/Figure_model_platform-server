@@ -23,6 +23,12 @@ public class Series extends BaseMongoEntity {
     // series description
 	private String desc;
 
+	// series belong to which
+	private String bigCode;
+
+	// series belong to which
+	private String bigName;
+
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
 	}
@@ -57,6 +63,22 @@ public class Series extends BaseMongoEntity {
 
 	public void setDesc(String desc) {
 		this.desc = desc;
+	}
+
+	public String getBigCode() {
+		return bigCode;
+	}
+
+	public void setBigCode(String bigCode) {
+		this.bigCode = bigCode;
+	}
+
+	public String getBigName() {
+		return bigName;
+	}
+
+	public void setBigName(String bigName) {
+		this.bigName = bigName;
 	}
 }
 

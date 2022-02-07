@@ -10,4 +10,6 @@ public interface DictService extends IService<Dict> {
     List<Dict> findChildData(Long id);
 
     void exportDictData(HttpServletResponse httpServletResponse);
+
+    String getDictValue(String dictCode, String value);
 }

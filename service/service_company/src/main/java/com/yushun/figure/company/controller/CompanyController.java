@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 @RestController
 @RequestMapping("/admin/comp/company")
 @CrossOrigin
@@ -26,7 +28,7 @@ public class CompanyController {
 
     @GetMapping("showCompanyDetail/{id}")
     public Result showCompanyDetail(@PathVariable String id) {
-        Company company = companyService.getCompanyById(id);
-        return Result.ok(company);
+        HashMap<String, Object> map = companyService.getCompanyById(id);
+        return Result.ok(map);
     }
 }

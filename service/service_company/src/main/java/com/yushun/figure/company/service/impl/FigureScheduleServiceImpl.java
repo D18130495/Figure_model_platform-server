@@ -39,4 +39,10 @@ public class FigureScheduleServiceImpl implements FigureScheduleService {
 
         figureScheduleRepository.save(figureSchedule);
     }
+
+    @Override
+    public Map<String, Object> getFigureSchedule(long current, long limit, String companyCode, String seriesCode) {
+        
+        return null;
+    }
 }

@@ -1,9 +1,9 @@
 package com.yushun.figure.company.service;
 
-import com.yushun.figure.model.company.Company;
 import com.yushun.figure.vo.company.CompanyQueryVo;
 import org.springframework.data.domain.Page;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public interface CompanyService {
@@ -13,5 +13,5 @@ public interface CompanyService {
 
     void updateCompanyStatus(String compCode, Integer status);
 
-    Company getCompanyById(String id);
+    HashMap<String, Object> getCompanyById(String id);
 }

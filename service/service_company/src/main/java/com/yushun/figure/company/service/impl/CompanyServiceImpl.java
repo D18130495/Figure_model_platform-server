@@ -1,6 +1,7 @@
 package com.yushun.figure.company.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.yushun.figure.cmn.feign.DictFeignClient;
 import com.yushun.figure.company.repository.CompanyRepository;
 import com.yushun.figure.company.service.CompanyService;
 import com.yushun.figure.model.company.BookingRule;
@@ -12,13 +13,17 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
-    CompanyRepository companyRepository;
+    private CompanyRepository companyRepository;
+
+    @Autowired
+    private DictFeignClient dictFeignClient;
 
     // upload or update company by remote request
     @Override
@@ -59,8 +64,23 @@ public class CompanyServiceImpl implements CompanyService {
 
         Example<Company> example = Example.of(company, matcher);
 
-        Page<Company> all = companyRepository.findAll(example, pageable);
-        return all;
+        Page<Company> pages = companyRepository.findAll(example, pageable);
+
+        pages.getContent().stream().forEach(item -> {
+            this.setCompany(item);
+        });
+
+        return pages;
+    }
+
+    private Company setCompany(Company item) {
+        String company_type = dictFeignClient.getDictValue("Company Type", item.getCompanyType());
+        String country = dictFeignClient.getDictValue("abc", item.getCountryCode());
+        String city = dictFeignClient.getDictValue("abc", item.getCityCode());
+        item.getParam().put("companyType", company_type);
+        item.getParam().put("country", country);
+        item.getParam().put("city", city);
+        return item;
     }
 
     // update the status of company in MongoDB, called by CompanySetController
@@ -78,8 +98,14 @@ public class CompanyServiceImpl implements CompanyService {
 
     // get the detail of company with MongoDB
     @Override
-    public Company getCompanyById(String id) {
+    public HashMap<String, Object> getCompanyById(String id) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
         Company company = companyRepository.findById(id).get();
-        return company;
+        Company finalCompany = this.setCompany(company);
+
+        result.put("company", finalCompany);
+        result.put("bookingRule", finalCompany.getBookingRule());
+
+        return result;
     }
 }
