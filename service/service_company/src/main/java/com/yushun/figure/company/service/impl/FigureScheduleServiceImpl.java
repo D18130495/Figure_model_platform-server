@@ -99,4 +99,10 @@ public class FigureScheduleServiceImpl implements FigureScheduleService {
 
         return result;
     }
+
+    @Override
+    public List<FigureSchedule> getFigureDetails(String companyCode, String seriesCode, String orderDate) {
+        List<FigureSchedule> result = figureScheduleRepository.getFigureScheduleByCompanyCodeAndSeriesCodeAndOrderDate(companyCode, seriesCode, new DateTime(orderDate).toDate());
+        return result;
+    }
 }

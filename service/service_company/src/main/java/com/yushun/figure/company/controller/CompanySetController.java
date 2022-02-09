@@ -18,7 +18,6 @@ import java.util.Random;
 
 @RestController
 @RequestMapping("/admin/comp/companySet")
-@CrossOrigin
 public class CompanySetController {
 
     @Autowired

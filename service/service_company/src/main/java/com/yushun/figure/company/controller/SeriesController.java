@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin/comp/series")
-@CrossOrigin
 public class SeriesController {
 
     @Autowired

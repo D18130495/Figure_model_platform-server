@@ -12,7 +12,6 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("/admin/comp/company")
-@CrossOrigin
 public class CompanyController {
 
     @Autowired

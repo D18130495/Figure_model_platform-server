@@ -18,7 +18,6 @@ import java.util.Date;
 import java.util.Map;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/company")
 public class ApiController {
 
