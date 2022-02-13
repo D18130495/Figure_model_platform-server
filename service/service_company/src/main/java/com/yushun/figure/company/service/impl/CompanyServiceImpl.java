@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -105,6 +106,24 @@ public class CompanyServiceImpl implements CompanyService {
 
         result.put("company", finalCompany);
         result.put("bookingRule", finalCompany.getBookingRule());
+
+        return result;
+    }
+
+    @Override
+    public List<Company> findCompanyByName(String companyName) {
+        return companyRepository.findCompanyByCompanyNameLike(companyName);
+    }
+
+    // get company detail by companyCode
+    @Override
+    public Map<String, Object> getCompanyByCompanyCode(String companyCode) {
+        Map<String, Object> result = new HashMap<>();
+
+        Company company = this.setCompany(companyRepository.getCompanyByCompanyCode(companyCode));
+        result.put("company", company);
+        result.put("bookingRule", company.getBookingRule());
+        company.setBookingRule(null);
 
         return result;
     }

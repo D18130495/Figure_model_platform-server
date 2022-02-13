@@ -1,7 +1,6 @@
 package com.yushun.figure.cmn.service.Impl;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yushun.figure.cmn.mapper.DictMapper;
@@ -9,7 +8,6 @@ import com.yushun.figure.cmn.service.DictService;
 import com.yushun.figure.model.cmn.Dict;
 import com.yushun.figure.vo.cmn.DictExcelVo;
 import org.springframework.beans.BeanUtils;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -79,6 +77,20 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
 
             return finalDict.getName();
         }
+    }
+
+    @Override
+    public List<Dict> getDictListByDictCode(String dictCode) {
+        QueryWrapper<Dict> queryWrapper = new QueryWrapper<Dict>();
+        queryWrapper.eq("dict_code", dictCode);
+        Dict dict = baseMapper.selectOne(queryWrapper);
+        Long dictId = dict.getId();
+
+        QueryWrapper<Dict> wrapper = new QueryWrapper<Dict>();
+        wrapper.eq("parent_id", dictId);
+        List<Dict> dictList = baseMapper.selectList(wrapper);
+
+        return dictList;
     }
 
     private boolean hasChildren(Long id) {

@@ -22,6 +22,12 @@ public class DictController {
         return Result.ok(list);
     }
 
+    @GetMapping("/getDictListByDictCode/{dictCode}")
+    public Result getDictListByDictCode(@PathVariable String dictCode) {
+        List<Dict> list = dictService.getDictListByDictCode(dictCode);
+        return Result.ok(list);
+    }
+
     @GetMapping("/getValue/{dictCode}/{value}")
     public String getDictValue(@PathVariable String dictCode, @PathVariable String value) {
         String dictValue = dictService.getDictValue(dictCode, value);
