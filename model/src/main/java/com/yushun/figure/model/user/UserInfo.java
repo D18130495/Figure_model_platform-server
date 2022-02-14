@@ -1,8 +1,10 @@
 package com.yushun.figure.model.user;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.yushun.figure.model.base.BaseEntity;
 
+@TableName("user")
 public class UserInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
