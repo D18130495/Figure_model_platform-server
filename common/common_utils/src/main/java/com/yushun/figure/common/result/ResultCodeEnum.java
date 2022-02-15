@@ -1,12 +1,15 @@
 package com.yushun.figure.common.result;
 
 /**
- * 统一返回结果状态信息类
+ * status
  */
 public enum ResultCodeEnum {
 
     SUCCESS(200,"success"),
-    FAIL(201, "fail");
+    FAIL(201, "fail"),
+
+    LOGIN_AUTH(208, "Not login"),
+    PERMISSION(209, "Not Auth");
 
     private Integer code;
     private String message;

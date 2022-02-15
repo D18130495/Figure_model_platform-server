@@ -10,7 +10,6 @@ import com.yushun.figure.vo.user.LoginVo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.sql.Wrapper;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +29,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
 
         // valuate if the phone message is equal to the input message
         // TODO
+        if(!code.equals("777777")) {
+            throw new NullPointerException();
+        }
 
         // if first time use this phone number login, register
         QueryWrapper<UserInfo> wrapper = new QueryWrapper<UserInfo>();
@@ -48,11 +50,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
 
 
         // if not first time, login
-
         // return login user information
-
         // return login user name
-
         // return token
         Map<String, Object> result = new HashMap<String, Object>();
         String name = userInfo.getName();
