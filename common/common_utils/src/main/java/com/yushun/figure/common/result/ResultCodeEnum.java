@@ -1,8 +1,5 @@
 package com.yushun.figure.common.result;
 
-/**
- * status
- */
 public enum ResultCodeEnum {
 
     SUCCESS(200,"success"),

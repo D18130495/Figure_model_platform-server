@@ -12,7 +12,7 @@ public class JwtHelper {
     //根据参数生成token
     public static String createToken(Long userId, String userName) {
         String token = Jwts.builder()
-                .setSubject("YYGH-USER")
+                .setSubject("Figure-user")
                 .setExpiration(new Date(System.currentTimeMillis() + tokenExpiration))
                 .claim("userId", userId)
                 .claim("userName", userName)
@@ -21,7 +21,7 @@ public class JwtHelper {
                 .compact();
         return token;
     }
-    //根据token字符串得到用户id
+    // get the userId by token
     public static Long getUserId(String token) {
         if(StringUtils.isEmpty(token)) return null;
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey(tokenSignKey).parseClaimsJws(token);
@@ -29,7 +29,7 @@ public class JwtHelper {
         Integer userId = (Integer)claims.get("userId");
         return userId.longValue();
     }
-    //根据token字符串得到用户名称
+    // get the userName by token
     public static String getUserName(String token) {
         if(StringUtils.isEmpty(token)) return "";
         Jws<Claims> claimsJws
@@ -37,6 +37,7 @@ public class JwtHelper {
         Claims claims = claimsJws.getBody();
         return (String)claims.get("userName");
     }
+
     public static void main(String[] args) {
         String token = JwtHelper.createToken(1L, "lucy");
         System.out.println(token);

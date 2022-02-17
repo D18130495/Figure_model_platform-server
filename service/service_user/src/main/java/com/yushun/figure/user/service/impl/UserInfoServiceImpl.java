@@ -3,10 +3,12 @@ package com.yushun.figure.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yushun.figure.common.helper.JwtHelper;
+import com.yushun.figure.common.result.AuthStatusEnum;
 import com.yushun.figure.model.user.UserInfo;
 import com.yushun.figure.user.mapper.UserInfoMapper;
 import com.yushun.figure.user.service.UserInfoService;
 import com.yushun.figure.vo.user.LoginVo;
+import com.yushun.figure.vo.user.UserAuthVo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -67,5 +69,26 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         result.put("token", token);
 
         return result;
+    }
+
+    @Override
+    public void userAuth(Long userId, UserAuthVo userAuthVo) {
+        // get user information
+        UserInfo userInfo = baseMapper.selectById(userId);
+
+        // set new information
+        userInfo.setName(userAuthVo.getName());
+        userInfo.setCertificatesType(userAuthVo.getCertificatesType());
+        userInfo.setCertificatesNo(userAuthVo.getCertificatesNo());
+        userInfo.setCertificatesUrl(userAuthVo.getCertificatesUrl());
+        userInfo.setAuthStatus(AuthStatusEnum.AUTH_RUN.getStatus());
+
+        baseMapper.updateById(userInfo);
+    }
+
+    @Override
+    public UserInfo getUserInfoById(Long userId) {
+        UserInfo userInfo = baseMapper.selectById(userId);
+        return userInfo;
     }
 }
