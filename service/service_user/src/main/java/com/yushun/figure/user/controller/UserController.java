@@ -7,10 +7,7 @@ import com.yushun.figure.model.user.UserInfo;
 import com.yushun.figure.user.service.UserInfoService;
 import com.yushun.figure.vo.user.UserQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin/user")
@@ -28,5 +25,12 @@ public class UserController {
         IPage<UserInfo> resultPage = userInfoService.selectPage(page, userQueryVo);
 
         return Result.ok(resultPage);
+    }
+
+    @PutMapping("lockOrUnlock/{userId}/{status}")
+    public Result lockOrUnlockUser(@PathVariable long userId,
+                           @PathVariable Integer status) {
+        userInfoService.lockOrUnlockUser(userId, status);
+        return Result.ok();
     }
 }

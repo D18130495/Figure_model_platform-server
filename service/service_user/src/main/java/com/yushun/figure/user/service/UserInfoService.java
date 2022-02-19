@@ -17,4 +17,6 @@ public interface UserInfoService {
     UserInfo getUserInfoById(Long userId);
 
     IPage<UserInfo> selectPage(Page<UserInfo> page, UserQueryVo userQueryVo);
+
+    void lockOrUnlockUser(long userId, Integer status);
 }

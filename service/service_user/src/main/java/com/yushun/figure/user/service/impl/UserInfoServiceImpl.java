@@ -12,7 +12,6 @@ import com.yushun.figure.user.service.UserInfoService;
 import com.yushun.figure.vo.user.LoginVo;
 import com.yushun.figure.vo.user.UserAuthVo;
 import com.yushun.figure.vo.user.UserQueryVo;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -128,6 +127,15 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         });
 
         return userInfoPage;
+    }
+
+    @Override
+    public void lockOrUnlockUser(long userId, Integer status) {
+        if(status.intValue() == 0 || status.intValue() == 1) {
+            UserInfo userInfo = baseMapper.selectById(userId);
+            userInfo.setStatus(status);
+            baseMapper.updateById(userInfo);
+        }
     }
 
     private UserInfo setParam(UserInfo userInfo) {
