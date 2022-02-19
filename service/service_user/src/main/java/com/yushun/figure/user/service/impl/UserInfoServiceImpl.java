@@ -123,6 +123,15 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
 
         IPage<UserInfo> userInfoPage = baseMapper.selectPage(page, wrapper);
 
+        userInfoPage.getRecords().stream().forEach(item -> {
+            this.setParam(item);
+        });
+
         return userInfoPage;
+    }
+
+    private UserInfo setParam(UserInfo userInfo) {
+        userInfo.getParam().put("authStatus", AuthStatusEnum.getStatusNameByStatus(userInfo.getStatus()));
+        return userInfo;
     }
 }
