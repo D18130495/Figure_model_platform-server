@@ -1,6 +1,8 @@
 package com.yushun.figure.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yushun.figure.common.helper.JwtHelper;
 import com.yushun.figure.common.result.AuthStatusEnum;
@@ -9,6 +11,8 @@ import com.yushun.figure.user.mapper.UserInfoMapper;
 import com.yushun.figure.user.service.UserInfoService;
 import com.yushun.figure.vo.user.LoginVo;
 import com.yushun.figure.vo.user.UserAuthVo;
+import com.yushun.figure.vo.user.UserQueryVo;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -90,5 +94,35 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     public UserInfo getUserInfoById(Long userId) {
         UserInfo userInfo = baseMapper.selectById(userId);
         return userInfo;
+    }
+
+    @Override
+    public IPage<UserInfo> selectPage(Page<UserInfo> page, UserQueryVo userQueryVo) {
+        String name = userQueryVo.getKeyword();
+        Integer status = userQueryVo.getStatus();
+        Integer authStatus = userQueryVo.getAuthStatus();
+        String startTime = userQueryVo.getCreateTimeBegin();
+        String endTime = userQueryVo.getCreateTimeEnd();
+
+        QueryWrapper<UserInfo> wrapper = new QueryWrapper<>();
+        if(!StringUtils.isEmpty(name)) {
+            wrapper.like("name", name);
+        }
+        if(!StringUtils.isEmpty(status)) {
+            wrapper.eq("status", status);
+        }
+        if(!StringUtils.isEmpty(authStatus)) {
+            wrapper.eq("auth_status", authStatus);
+        }
+        if(!StringUtils.isEmpty(startTime)) {
+            wrapper.ge("create_time", startTime);
+        }
+        if(!StringUtils.isEmpty(endTime)) {
+            wrapper.le("update_time", endTime);
+        }
+
+        IPage<UserInfo> userInfoPage = baseMapper.selectPage(page, wrapper);
+
+        return userInfoPage;
     }
 }

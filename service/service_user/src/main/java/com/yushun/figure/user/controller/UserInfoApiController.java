@@ -6,7 +6,6 @@ import com.yushun.figure.model.user.UserInfo;
 import com.yushun.figure.user.service.UserInfoService;
 import com.yushun.figure.vo.user.LoginVo;
 import com.yushun.figure.vo.user.UserAuthVo;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
