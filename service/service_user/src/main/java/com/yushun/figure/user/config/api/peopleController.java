@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -18,7 +19,7 @@ public class peopleController {
     private PeopleService peopleService;
 
     // get order people list
-    @GetMapping("auth/findAll")
+    @GetMapping("/auth/findAll")
     public Result findAllOrderPeople(HttpServletRequest request) {
         Long userId = AuthContextHolder.getUserId(request);
         List<People> list = peopleService.findAllUserId(userId);
@@ -31,6 +32,8 @@ public class peopleController {
                              HttpServletRequest request) {
         Long userId = AuthContextHolder.getUserId(request);
         people.setUserId(userId);
+        people.setCreateTime(new Date());
+        people.setUpdateTime(new Date());
         peopleService.save(people);
 
         return Result.ok();
@@ -44,14 +47,15 @@ public class peopleController {
     }
 
     // update order people
-    @PutMapping("auth/update")
+    @PutMapping("/auth/update")
     public Result updatePeople(@RequestBody People people) {
+        people.setUpdateTime(new Date());
         peopleService.updateById(people);
         return Result.ok();
     }
 
     // delete order people
-    @DeleteMapping("auth/delete/{id}")
+    @DeleteMapping("/auth/delete/{id}")
     public Result deletePeople(@PathVariable Long id) {
         peopleService.removeById(id);
         return Result.ok();
