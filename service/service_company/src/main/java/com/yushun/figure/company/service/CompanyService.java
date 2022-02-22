@@ -20,4 +20,6 @@ public interface CompanyService {
     List<Company> findCompanyByName(String companyName);
 
     Map<String, Object> getCompanyByCompanyCode(String companyCode);
+
+    Company getCompanyByCode(String companyCode);
 }

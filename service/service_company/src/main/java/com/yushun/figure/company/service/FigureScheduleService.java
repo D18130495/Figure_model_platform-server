@@ -13,4 +13,6 @@ public interface FigureScheduleService {
     Map<String, Object> getFigureSchedule(long current, long limit, String companyCode, String seriesCode);
 
     List<FigureSchedule> getFigureDetails(String companyCode, String seriesCode, String orderDate);
+
+    Map<String, Object> getSchedule(Integer current, Integer limit, String companyCode, String seriesCode);
 }

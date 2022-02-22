@@ -127,4 +127,9 @@ public class CompanyServiceImpl implements CompanyService {
 
         return result;
     }
+
+    @Override
+    public Company getCompanyByCode(String companyCode) {
+        return this.setCompany(companyRepository.getCompanyByCompanyCode(companyCode));
+    }
 }

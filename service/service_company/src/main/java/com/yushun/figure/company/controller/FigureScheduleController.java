@@ -33,4 +33,14 @@ public class FigureScheduleController {
         List<FigureSchedule> resultList = figureScheduleService.getFigureDetails(companyCode, seriesCode, orderDate);
         return Result.ok(resultList);
     }
+
+    // get the pre-order schedule detail
+    @GetMapping("/auth/getScheduleRule/{current}/{limit}/{companyCode}/{seriesCode}")
+    public Result getSchedule(@PathVariable Integer current,
+                              @PathVariable Integer limit,
+                              @PathVariable String companyCode,
+                              @PathVariable String seriesCode) {
+        Map<String, Object> result = figureScheduleService.getSchedule(current, limit, companyCode, seriesCode);
+        return Result.ok(result);
+    }
 }
