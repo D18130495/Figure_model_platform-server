@@ -157,6 +157,9 @@ public class FigureScheduleServiceImpl implements FigureScheduleService {
                 bookingScheduleRuleVo = new BookingScheduleRuleVo();
                 bookingScheduleRuleVo.setFigureCount(0);
                 bookingScheduleRuleVo.setAvailableNumber(-1);
+                bookingScheduleRuleVo.setStatus(1);
+            }else {
+                bookingScheduleRuleVo.setStatus(0);
             }
             bookingScheduleRuleVo.setOrderDate(date);
             bookingScheduleRuleVo.setWorkDateMd(date);
@@ -197,7 +200,7 @@ public class FigureScheduleServiceImpl implements FigureScheduleService {
             end = dateList.size();
         }
 
-        for(int j = 0; j < end; j++) {
+        for(int j = start; j < end; j++) {
             pageDateList.add(dateList.get(j));
         }
 
