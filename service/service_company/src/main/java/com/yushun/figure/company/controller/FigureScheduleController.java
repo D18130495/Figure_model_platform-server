@@ -43,4 +43,11 @@ public class FigureScheduleController {
         Map<String, Object> result = figureScheduleService.getSchedule(current, limit, companyCode, seriesCode);
         return Result.ok(result);
     }
+
+
+    @GetMapping("getSchedule/{scheduleId}")
+    public Result getScheduleByFigureScheduleId(@PathVariable String scheduleId) {
+        FigureSchedule figureSchedule = figureScheduleService.getScheduleByFigureScheduleId(scheduleId);
+        return Result.ok(figureSchedule);
+    }
 }

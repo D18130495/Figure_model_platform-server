@@ -15,4 +15,6 @@ public interface FigureScheduleService {
     List<FigureSchedule> getFigureDetails(String companyCode, String seriesCode, String orderDate);
 
     Map<String, Object> getSchedule(Integer current, Integer limit, String companyCode, String seriesCode);
+
+    FigureSchedule getScheduleByFigureScheduleId(String scheduleId);
 }

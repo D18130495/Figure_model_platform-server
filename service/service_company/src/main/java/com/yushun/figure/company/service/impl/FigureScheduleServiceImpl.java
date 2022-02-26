@@ -179,6 +179,12 @@ public class FigureScheduleServiceImpl implements FigureScheduleService {
         return result;
     }
 
+    @Override
+    public FigureSchedule getScheduleByFigureScheduleId(String scheduleId) {
+        FigureSchedule figureSchedule = figureScheduleRepository.findById(scheduleId).get();
+        return figureSchedule;
+    }
+
     private IPage getListDate(Integer current, Integer limit, BookingRule bookingRule) {
         DateTime dateTime = this.getDateTime(new Date(), bookingRule.getReleaseTime());
         Integer cycle = bookingRule.getCycle();
