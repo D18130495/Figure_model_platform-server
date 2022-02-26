@@ -1,6 +1,7 @@
 package com.yushun.figure.company.service;
 
 import com.yushun.figure.model.company.FigureSchedule;
+import com.yushun.figure.vo.company.ScheduleOrderVo;
 
 import java.util.Date;
 import java.util.List;
@@ -17,4 +18,6 @@ public interface FigureScheduleService {
     Map<String, Object> getSchedule(Integer current, Integer limit, String companyCode, String seriesCode);
 
     FigureSchedule getScheduleByFigureScheduleId(String scheduleId);
+
+    ScheduleOrderVo getScheduleOrderVo(String scheduleId);
 }

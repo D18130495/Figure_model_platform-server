@@ -3,14 +3,16 @@ package com.yushun.figure.company.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yushun.figure.common.date.DayOfWeek;
+import com.yushun.figure.company.mapper.CompanySetMapper;
+import com.yushun.figure.company.mapper.FigureScheduleMapper;
 import com.yushun.figure.company.repository.FigureScheduleRepository;
 import com.yushun.figure.company.service.CompanyService;
 import com.yushun.figure.company.service.FigureScheduleService;
-import com.yushun.figure.model.company.BookingRule;
-import com.yushun.figure.model.company.BookingScheduleRuleVo;
-import com.yushun.figure.model.company.Company;
-import com.yushun.figure.model.company.FigureSchedule;
+import com.yushun.figure.company.service.SeriesService;
+import com.yushun.figure.model.company.*;
+import com.yushun.figure.vo.company.ScheduleOrderVo;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +24,21 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class FigureScheduleServiceImpl implements FigureScheduleService {
+public class FigureScheduleServiceImpl extends ServiceImpl<FigureScheduleMapper, FigureSchedule> implements FigureScheduleService {
 
     @Autowired
     private FigureScheduleRepository figureScheduleRepository;
 
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private SeriesService seriesService;
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -183,6 +189,41 @@ public class FigureScheduleServiceImpl implements FigureScheduleService {
     public FigureSchedule getScheduleByFigureScheduleId(String scheduleId) {
         FigureSchedule figureSchedule = figureScheduleRepository.findById(scheduleId).get();
         return figureSchedule;
+    }
+
+    @Override
+    public ScheduleOrderVo getScheduleOrderVo(String scheduleId) {
+        ScheduleOrderVo scheduleOrderVo = new ScheduleOrderVo();
+        FigureSchedule figureSchedule = figureScheduleRepository.findById(scheduleId).get();
+        if(figureSchedule == null) {
+            throw new NullPointerException();
+        }
+
+        // get order rule
+        Company company = companyService.getCompanyByCode(figureSchedule.getCompanyCode());
+        if(company == null) {
+            throw new NullPointerException();
+        }
+
+        BookingRule bookingRule = company.getBookingRule();
+
+        scheduleOrderVo.setCompanyCode(figureSchedule.getCompanyCode());
+        scheduleOrderVo.setCompanyName(company.getCompanyName());
+        scheduleOrderVo.setSeriesCode(figureSchedule.getSeriesCode());
+        scheduleOrderVo.setCompanyScheduleId(figureSchedule.getId());
+        scheduleOrderVo.setAvailableNumber(figureSchedule.getAvailableNumber());
+        scheduleOrderVo.setReserveDate(figureSchedule.getOrderDate());
+        scheduleOrderVo.setAmount(figureSchedule.getPreorderFee());
+
+        scheduleOrderVo.setSeriesName(companyService.getCompanyByCode(figureSchedule.getCompanyCode()).getCompanyName());
+
+        DateTime startTime = this.getDateTime(new Date(), bookingRule.getReleaseTime());
+        scheduleOrderVo.setStartTime(startTime.toDate());
+
+        DateTime stopTime = this.getDateTime(new Date(), bookingRule.getStopTime());
+        scheduleOrderVo.setStartTime(stopTime.toDate());
+
+        return scheduleOrderVo;
     }
 
     private IPage getListDate(Integer current, Integer limit, BookingRule bookingRule) {

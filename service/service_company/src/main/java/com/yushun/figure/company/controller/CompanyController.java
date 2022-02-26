@@ -4,7 +4,6 @@ import com.yushun.figure.common.result.Result;
 import com.yushun.figure.company.service.CompanyService;
 import com.yushun.figure.model.company.Company;
 import com.yushun.figure.vo.company.CompanyQueryVo;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;

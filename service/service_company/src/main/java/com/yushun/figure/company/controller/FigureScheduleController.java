@@ -3,6 +3,7 @@ package com.yushun.figure.company.controller;
 import com.yushun.figure.common.result.Result;
 import com.yushun.figure.company.service.FigureScheduleService;
 import com.yushun.figure.model.company.FigureSchedule;
+import com.yushun.figure.vo.company.ScheduleOrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,9 +46,15 @@ public class FigureScheduleController {
     }
 
 
-    @GetMapping("getSchedule/{scheduleId}")
+    @GetMapping("/getSchedule/{scheduleId}")
     public Result getScheduleByFigureScheduleId(@PathVariable String scheduleId) {
         FigureSchedule figureSchedule = figureScheduleService.getScheduleByFigureScheduleId(scheduleId);
         return Result.ok(figureSchedule);
+    }
+
+    @GetMapping("/inner/getScheduleOrderVo/{scheduleId}")
+    public ScheduleOrderVo getScheduleOrderVo(@PathVariable String scheduleId) {
+        ScheduleOrderVo scheduleOrderVo = figureScheduleService.getScheduleOrderVo(scheduleId);
+        return scheduleOrderVo;
     }
 }

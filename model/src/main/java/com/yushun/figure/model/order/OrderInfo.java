@@ -67,7 +67,7 @@ public class OrderInfo extends BaseEntity {
     private String fetchAddress;
 
     @TableField("amount")
-    private BigDecimal amount;
+    private String amount;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @TableField("quit_time")
@@ -216,11 +216,11 @@ public class OrderInfo extends BaseEntity {
         this.fetchAddress = fetchAddress;
     }
 
-    public BigDecimal getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 

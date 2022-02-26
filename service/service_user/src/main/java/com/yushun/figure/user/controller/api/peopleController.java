@@ -1,4 +1,4 @@
-package com.yushun.figure.user.config.api;
+package com.yushun.figure.user.controller.api;
 
 import com.yushun.figure.common.result.Result;
 import com.yushun.figure.common.utils.AuthContextHolder;
@@ -59,5 +59,12 @@ public class peopleController {
     public Result deletePeople(@PathVariable Long id) {
         peopleService.removeById(id);
         return Result.ok();
+    }
+
+    // get people info by people id
+    @GetMapping("/inner/get/{peopleId}")
+    public People getPeopleOrder(@PathVariable Long peopleId) {
+        People people = peopleService.getPeopleById(peopleId);
+        return people;
     }
 }

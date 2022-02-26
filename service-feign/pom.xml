@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>service-cmn-feign</module>
+        <module>service-user-feign</module>
+        <module>service-company-feign</module>
     </modules>
 
     <properties>
