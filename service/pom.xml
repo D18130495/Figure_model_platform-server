@@ -16,6 +16,7 @@
         <module>service_company</module>
         <module>service_cmn</module>
         <module>service_msm</module>
+        <module>service-order</module>
     </modules>
 
     <properties>
