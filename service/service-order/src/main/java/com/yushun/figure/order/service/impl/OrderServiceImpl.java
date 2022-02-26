@@ -2,6 +2,7 @@ package com.yushun.figure.order.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.yushun.figure.common.result.OrderStatusEnum;
 import com.yushun.figure.company.feign.CompanyFeignClient;
 import com.yushun.figure.model.order.OrderInfo;
 import com.yushun.figure.order.mapper.OrderMapper;
@@ -62,5 +63,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderInfo> implem
         OrderInfo orderInfo1 = baseMapper.selectOne(wrapper);
 
         return orderInfo1;
+    }
+
+    @Override
+    public OrderInfo getOrderById(Long orderId) {
+        OrderInfo orderInfo = baseMapper.selectById(orderId);
+        orderInfo.getParam().put("orderStatus", OrderStatusEnum.getStatusNameByStatus(orderInfo.getOrderStatus()));
+        return orderInfo;
     }
 }

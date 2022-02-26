@@ -5,4 +5,6 @@ import com.yushun.figure.model.order.OrderInfo;
 
 public interface OrderService extends IService<OrderInfo> {
     OrderInfo saveOrder(String scheduleId, Long peopleId);
+
+    OrderInfo getOrderById(Long orderId);
 }

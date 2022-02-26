@@ -20,4 +20,11 @@ public class OrderApiController {
         OrderInfo orderInfo = orderService.saveOrder(scheduleId, peopleId);
         return Result.ok(orderInfo);
     }
+
+    // get order by orderId
+    @GetMapping("/auth/getOrderById/{orderId}")
+    public Result getOrdersById(@PathVariable Long orderId) {
+        OrderInfo order = orderService.getOrderById(orderId);
+        return Result.ok(order);
+    }
 }
