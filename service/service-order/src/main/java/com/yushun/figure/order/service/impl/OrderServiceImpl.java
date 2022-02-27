@@ -1,6 +1,8 @@
 package com.yushun.figure.order.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yushun.figure.common.result.OrderStatusEnum;
 import com.yushun.figure.company.feign.CompanyFeignClient;
@@ -9,10 +11,12 @@ import com.yushun.figure.order.mapper.OrderMapper;
 import com.yushun.figure.order.service.OrderService;
 import com.yushun.figure.user.feign.PeopleFeignClient;
 import com.yushun.figure.vo.company.ScheduleOrderVo;
+import com.yushun.figure.vo.order.OrderQueryVo;
 import com.yushun.figure.vo.user.People;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -76,5 +80,46 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderInfo> implem
         orderInfo.getParam().put("orderStatus", OrderStatusEnum.getStatusNameByStatus(orderInfo.getOrderStatus()));
         orderInfo.getParam().put("orderStatusString", "Please check the purchase information and please order. ");
         return orderInfo;
+    }
+
+    @Override
+    public IPage<OrderInfo> selectPage(Page<OrderInfo> page, OrderQueryVo orderQueryVo) {
+        String companyName = orderQueryVo.getCompanyName();
+        String peopleName = orderQueryVo.getPeopleName();
+        String orderStatus = orderQueryVo.getOrderStatus();
+        String reserveDate = orderQueryVo.getReserveDate();
+        String createTimeBegin = orderQueryVo.getCreateTimeBegin();
+        String creatTimeEnd = orderQueryVo.getCreateTimeEnd();
+
+        QueryWrapper<OrderInfo> wrapper = new QueryWrapper<>();
+
+        if(!StringUtils.isEmpty(companyName)) {
+            wrapper.like("company_name", companyName);
+        }
+
+        if(!StringUtils.isEmpty(companyName)) {
+            wrapper.like("people_name", peopleName);
+        }
+
+        if(!StringUtils.isEmpty(companyName)) {
+            wrapper.like("order_status", orderStatus);
+        }
+
+        if(!StringUtils.isEmpty(companyName)) {
+            wrapper.like("reserve_date", reserveDate);
+        }
+
+        if(!StringUtils.isEmpty(companyName)) {
+            wrapper.ge("create_time", createTimeBegin);
+        }
+
+        if(!StringUtils.isEmpty(companyName)) {
+            wrapper.le("create_time", creatTimeEnd);
+        }
+
+        Page<OrderInfo> orderInfoPage = baseMapper.selectPage(page, wrapper);
+
+
+        return orderInfoPage;
     }
 }
