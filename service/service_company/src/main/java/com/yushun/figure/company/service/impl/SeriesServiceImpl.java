@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,5 +74,17 @@ public class SeriesServiceImpl implements SeriesService {
         }
 
         return result;
+    }
+
+    // get series name by series id
+    @Override
+    public String getSeriesNameBySeriesCode(String seriesCode) {
+        Series series = new Series();
+        series.setSeriesCode(seriesCode);
+
+        Example<Series> example = Example.of(series);
+
+        Optional<Series> one = seriesRepository.findOne(example);
+        return one.orElse(new Series()).getSeriesName();
     }
 }

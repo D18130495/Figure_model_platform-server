@@ -27,4 +27,10 @@ public class OrderApiController {
         OrderInfo order = orderService.getOrderById(orderId);
         return Result.ok(order);
     }
+
+    @DeleteMapping("/auth/deleteOrderById/{orderId}")
+    public Result deleteOrderById(@PathVariable Long orderId) {
+        orderService.removeById(orderId);
+        return Result.ok();
+    }
 }

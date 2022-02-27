@@ -11,14 +11,10 @@ import com.yushun.figure.user.feign.PeopleFeignClient;
 import com.yushun.figure.vo.company.ScheduleOrderVo;
 import com.yushun.figure.vo.user.People;
 import org.joda.time.DateTime;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderInfo> implements OrderService {
@@ -52,12 +48,21 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderInfo> implem
         orderInfo.setCreateTime(new Date());
         orderInfo.setUpdateTime(new Date());
 
+
+        Calendar rightNow = Calendar.getInstance();
+        int moa = rightNow.get(Calendar.AM_PM);
+        orderInfo.setReserveTime(moa);
+        rightNow.add(Calendar.DATE, 14);
+        orderInfo.setReserveDate(rightNow.getTime());
+
+        orderInfo.setAmount(scheduleOrderVo.getAmount());
         orderInfo.setCompanyName(scheduleOrderVo.getCompanyName());
         orderInfo.setCompanyCode(scheduleOrderVo.getCompanyCode());
         orderInfo.setSeriesCode(scheduleOrderVo.getSeriesCode());
         orderInfo.setSeriesName(scheduleOrderVo.getSeriesName());
 
         baseMapper.insert(orderInfo);
+
         QueryWrapper<OrderInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("out_trade_no", outTradeNo);
         OrderInfo orderInfo1 = baseMapper.selectOne(wrapper);
@@ -69,6 +74,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderInfo> implem
     public OrderInfo getOrderById(Long orderId) {
         OrderInfo orderInfo = baseMapper.selectById(orderId);
         orderInfo.getParam().put("orderStatus", OrderStatusEnum.getStatusNameByStatus(orderInfo.getOrderStatus()));
+        orderInfo.getParam().put("orderStatusString", "Please check the purchase information and please order. ");
         return orderInfo;
     }
 }

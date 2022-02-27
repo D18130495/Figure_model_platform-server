@@ -9,4 +9,6 @@ public interface SeriesService {
     void save(Map<String, Object> stringObjectMap);
 
     List<SeriesTreeVo> getSeriesTree(String companyCode);
+
+    String getSeriesNameBySeriesCode(String seriesCode);
 }

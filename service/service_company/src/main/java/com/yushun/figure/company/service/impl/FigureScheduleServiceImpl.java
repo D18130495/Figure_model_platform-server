@@ -215,7 +215,7 @@ public class FigureScheduleServiceImpl extends ServiceImpl<FigureScheduleMapper,
         scheduleOrderVo.setReserveDate(figureSchedule.getOrderDate());
         scheduleOrderVo.setAmount(figureSchedule.getPreorderFee());
 
-        scheduleOrderVo.setSeriesName(companyService.getCompanyByCode(figureSchedule.getCompanyCode()).getCompanyName());
+        scheduleOrderVo.setSeriesName(seriesService.getSeriesNameBySeriesCode(figureSchedule.getSeriesCode()));
 
         DateTime startTime = this.getDateTime(new Date(), bookingRule.getReleaseTime());
         scheduleOrderVo.setStartTime(startTime.toDate());
