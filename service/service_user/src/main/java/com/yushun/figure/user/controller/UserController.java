@@ -29,8 +29,15 @@ public class UserController {
 
     @PutMapping("lockOrUnlock/{userId}/{status}")
     public Result lockOrUnlockUser(@PathVariable long userId,
-                           @PathVariable Integer status) {
+                                   @PathVariable Integer status) {
         userInfoService.lockOrUnlockUser(userId, status);
+        return Result.ok();
+    }
+
+    @PutMapping("authUser/{userId}/{authStatus}")
+    public Result authUser(@PathVariable long userId,
+                           @PathVariable Integer authStatus) {
+        userInfoService.authUser(userId, authStatus);
         return Result.ok();
     }
 }

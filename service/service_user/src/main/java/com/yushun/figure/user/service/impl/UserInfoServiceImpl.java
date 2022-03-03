@@ -46,7 +46,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             userInfo = new UserInfo();
             userInfo.setName("");
             userInfo.setPhone(phone);
-            userInfo.setStatus(1);
+            userInfo.setAuthStatus(0);
+            userInfo.setStatus(0);
             userInfo.setIsDeleted(0);
             userInfo.setCreateTime(new Date());
             userInfo.setUpdateTime(new Date());
@@ -92,6 +93,19 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     @Override
     public UserInfo getUserInfoById(Long userId) {
         UserInfo userInfo = baseMapper.selectById(userId);
+
+        if(userInfo.getAuthStatus() == 0) {
+            userInfo.getParam().put("authStatus", "Please fill the below information and start authentication.");
+        }
+
+        if(userInfo.getAuthStatus() == 1) {
+            userInfo.getParam().put("authStatus", "Please waiting for the authentication process.");
+        }
+
+        if(userInfo.getAuthStatus() == 2) {
+            userInfo.getParam().put("authStatus", "Successfully authenticated.");
+        }
+
         return userInfo;
     }
 
@@ -134,6 +148,16 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         if(status.intValue() == 0 || status.intValue() == 1) {
             UserInfo userInfo = baseMapper.selectById(userId);
             userInfo.setStatus(status);
+            baseMapper.updateById(userInfo);
+        }
+    }
+
+    @Override
+    public void authUser(long userId, Integer authStatus) {
+        if(authStatus.intValue() == 2) {
+            UserInfo userInfo = baseMapper.selectById(userId);
+            userInfo.setAuthStatus(AuthStatusEnum.AUTH_SUCCESS.getStatus());
+            System.out.println(AuthStatusEnum.AUTH_SUCCESS.getStatus());
             baseMapper.updateById(userInfo);
         }
     }
