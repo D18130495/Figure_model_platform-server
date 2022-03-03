@@ -34,8 +34,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderInfo> implem
         People peopleOrder = peopleFeignClient.getPeopleOrder(peopleId);
         ScheduleOrderVo scheduleOrderVo = companyFeignClient.getScheduleOrderVo(scheduleId);
 
-        if(new DateTime(scheduleOrderVo.getStartTime()).isAfterNow() || new DateTime(scheduleOrderVo.getStopTime()).isBeforeNow())
-            throw new NullPointerException();
+//        if(new DateTime(scheduleOrderVo.getStartTime()).isAfterNow() || new DateTime(scheduleOrderVo.getStopTime()).isBeforeNow())
+//            throw new NullPointerException();
 
         OrderInfo orderInfo = new OrderInfo();
 
@@ -56,8 +56,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderInfo> implem
         Calendar rightNow = Calendar.getInstance();
         int moa = rightNow.get(Calendar.AM_PM);
         orderInfo.setReserveTime(moa);
-        rightNow.add(Calendar.DATE, 14);
         orderInfo.setReserveDate(rightNow.getTime());
+        rightNow.add(Calendar.DATE, 14);
+        orderInfo.setFetchTime(rightNow.getTime());
 
         orderInfo.setAmount(scheduleOrderVo.getAmount());
         orderInfo.setCompanyName(scheduleOrderVo.getCompanyName());

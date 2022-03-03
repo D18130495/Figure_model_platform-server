@@ -60,8 +60,9 @@ public class OrderInfo extends BaseEntity {
     @TableField("number")
     private Integer number;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @TableField("fetch_time")
-    private String fetchTime;
+    private Date fetchTime;
 
     @TableField("fetch_address")
     private String fetchAddress;
@@ -200,11 +201,11 @@ public class OrderInfo extends BaseEntity {
         this.number = number;
     }
 
-    public String getFetchTime() {
+    public Date getFetchTime() {
         return fetchTime;
     }
 
-    public void setFetchTime(String fetchTime) {
+    public void setFetchTime(Date fetchTime) {
         this.fetchTime = fetchTime;
     }
 

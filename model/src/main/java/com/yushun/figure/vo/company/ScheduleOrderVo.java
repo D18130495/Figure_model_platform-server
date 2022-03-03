@@ -1,6 +1,5 @@
 package com.yushun.figure.vo.company;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class ScheduleOrderVo {
