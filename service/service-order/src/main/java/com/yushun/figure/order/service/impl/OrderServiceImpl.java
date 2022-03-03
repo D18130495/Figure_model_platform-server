@@ -13,7 +13,6 @@ import com.yushun.figure.user.feign.PeopleFeignClient;
 import com.yushun.figure.vo.company.ScheduleOrderVo;
 import com.yushun.figure.vo.order.OrderQueryVo;
 import com.yushun.figure.vo.user.People;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -52,7 +51,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderInfo> implem
         orderInfo.setCreateTime(new Date());
         orderInfo.setUpdateTime(new Date());
 
-
         Calendar rightNow = Calendar.getInstance();
         int moa = rightNow.get(Calendar.AM_PM);
         orderInfo.setReserveTime(moa);
@@ -79,7 +77,19 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderInfo> implem
     public OrderInfo getOrderById(Long orderId) {
         OrderInfo orderInfo = baseMapper.selectById(orderId);
         orderInfo.getParam().put("orderStatus", OrderStatusEnum.getStatusNameByStatus(orderInfo.getOrderStatus()));
-        orderInfo.getParam().put("orderStatusString", "Please check the purchase information and please order. ");
+
+        if(orderInfo.getOrderStatus() == -1) {
+            orderInfo.getParam().put("orderStatusString", "Order has been cancelled.");
+        }
+
+        if (orderInfo.getOrderStatus() == 0) {
+            orderInfo.getParam().put("orderStatusString", "Please check the purchase information and please order.");
+        }
+
+        if (orderInfo.getOrderStatus() == 1) {
+            orderInfo.getParam().put("orderStatusString", "Successfully placed this pre-order.");
+        }
+
         return orderInfo;
     }
 
@@ -120,7 +130,27 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderInfo> implem
 
         Page<OrderInfo> orderInfoPage = baseMapper.selectPage(page, wrapper);
 
+        orderInfoPage.getRecords().stream().forEach(item -> {
+            ScheduleOrderVo scheduleOrderVo = companyFeignClient.getScheduleOrderVo(item.getScheduleId());
+            item.getParam().put("figureName", scheduleOrderVo.getFigureName());
+        });
 
         return orderInfoPage;
+    }
+
+    @Override
+    public OrderInfo cancelOrderById(Long orderId) {
+        OrderInfo orderInfo = baseMapper.selectById(orderId);
+        orderInfo.setOrderStatus(-1);
+        baseMapper.updateById(orderInfo);
+        return orderInfo;
+    }
+
+    @Override
+    public OrderInfo placeOrderById(Long orderId) {
+        OrderInfo orderInfo = baseMapper.selectById(orderId);
+        orderInfo.setOrderStatus(1);
+        baseMapper.updateById(orderInfo);
+        return orderInfo;
     }
 }

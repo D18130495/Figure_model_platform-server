@@ -37,7 +37,13 @@ public class OrderApiController {
 
     @DeleteMapping("/auth/deleteOrderById/{orderId}")
     public Result deleteOrderById(@PathVariable Long orderId) {
-        orderService.removeById(orderId);
+        orderService.cancelOrderById(orderId);
+        return Result.ok();
+    }
+
+    @PutMapping("/auth/placeOrderById/{orderId}")
+    public Result placeOrderById(@PathVariable Long orderId) {
+        orderService.placeOrderById(orderId);
         return Result.ok();
     }
 

@@ -214,6 +214,7 @@ public class FigureScheduleServiceImpl extends ServiceImpl<FigureScheduleMapper,
         scheduleOrderVo.setAvailableNumber(figureSchedule.getAvailableNumber());
         scheduleOrderVo.setReserveDate(figureSchedule.getOrderDate());
         scheduleOrderVo.setAmount(figureSchedule.getPreorderFee());
+        scheduleOrderVo.setFigureName(figureSchedule.getFigureName());
 
         scheduleOrderVo.setSeriesName(seriesService.getSeriesNameBySeriesCode(figureSchedule.getSeriesCode()));
 

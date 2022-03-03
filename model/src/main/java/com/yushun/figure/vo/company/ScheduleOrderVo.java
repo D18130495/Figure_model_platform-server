@@ -12,6 +12,8 @@ public class ScheduleOrderVo {
 
     private String seriesName;
 
+    private String figureName;
+
     private String companyScheduleId;
 
     private Date reserveDate;
@@ -60,6 +62,14 @@ public class ScheduleOrderVo {
 
     public void setSeriesName(String seriesName) {
         this.seriesName = seriesName;
+    }
+
+    public String getFigureName() {
+        return figureName;
+    }
+
+    public void setFigureName(String figureName) {
+        this.figureName = figureName;
     }
 
     public String getCompanyScheduleId() {

@@ -12,4 +12,8 @@ public interface OrderService extends IService<OrderInfo> {
     OrderInfo getOrderById(Long orderId);
 
     IPage<OrderInfo> selectPage(Page<OrderInfo> page, OrderQueryVo orderQueryVo);
+
+    OrderInfo cancelOrderById(Long orderId);
+
+    OrderInfo placeOrderById(Long orderId);
 }
