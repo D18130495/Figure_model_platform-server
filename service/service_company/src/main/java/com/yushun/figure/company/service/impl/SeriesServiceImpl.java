@@ -85,6 +85,6 @@ public class SeriesServiceImpl implements SeriesService {
         Example<Series> example = Example.of(series);
 
         Optional<Series> one = seriesRepository.findOne(example);
-        return one.orElse(new Series()).getSeriesName();
+        return one.get().getSeriesName();
     }
 }

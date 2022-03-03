@@ -42,7 +42,7 @@ public class OrderApiController {
     }
 
     @GetMapping("/auth/{current}/{limit}")
-    public Result getOrderlist(@PathVariable Long current,
+    public Result getOrderList(@PathVariable Long current,
                                @PathVariable Long limit,
                                OrderQueryVo orderQueryVo,
                                HttpServletRequest httpServletRequest) {

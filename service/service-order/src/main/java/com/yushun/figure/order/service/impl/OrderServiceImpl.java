@@ -97,23 +97,23 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderInfo> implem
             wrapper.like("company_name", companyName);
         }
 
-        if(!StringUtils.isEmpty(companyName)) {
+        if(!StringUtils.isEmpty(peopleName)) {
             wrapper.like("people_name", peopleName);
         }
 
-        if(!StringUtils.isEmpty(companyName)) {
+        if(!StringUtils.isEmpty(orderStatus)) {
             wrapper.like("order_status", orderStatus);
         }
 
-        if(!StringUtils.isEmpty(companyName)) {
+        if(!StringUtils.isEmpty(reserveDate)) {
             wrapper.like("reserve_date", reserveDate);
         }
 
-        if(!StringUtils.isEmpty(companyName)) {
+        if(!StringUtils.isEmpty(createTimeBegin)) {
             wrapper.ge("create_time", createTimeBegin);
         }
 
-        if(!StringUtils.isEmpty(companyName)) {
+        if(!StringUtils.isEmpty(creatTimeEnd)) {
             wrapper.le("create_time", creatTimeEnd);
         }
 
