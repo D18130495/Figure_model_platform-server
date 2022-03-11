@@ -7,7 +7,7 @@ Figure model platform back-end
 - [Project structure](#project-structure)
 - [Get started with this project](#get-started-with-this-project)
 - [Model definition for database](#model-definition-for-database)
-- [Project Introduction](#project-introduction)
+- [Project Detail](#project-detail)
 
 ## Project Description
 
@@ -23,9 +23,10 @@ Figure model platform back-end
 ### Back-end
 |     Technology     |        Description       |                Official website                |
 | :----------------: | :----------------------: | :--------------------------------------------: |
-|      Node.js       |  JavaScript Environment  |               https://nodejs.org/              |
-|      Express       |   Node.js Web Framework  |                                                |
-|      MongoDB       |  Non-relational database |             https://www.mongodb.com/           |
+|       Vue.js       |  JavaScript Environment  |               https://vuejs.org/               |
+|        Java        |  Java programming lanage |              https://www.java.com/             |
+|     Spring Boot    |    Java web framework    |      https://spring.io/projects/spring-boot    |
+|       MongoDB      |  Non-relational database |             https://www.mongodb.com/           |
 
 ## Project structure
 
@@ -33,5 +34,6 @@ Figure model platform back-end
 
 ## Model definition for database.
 
-## Project Introduction
+## Project Detail
+
 [Deployment documentation](docs/Deployment.md)
