@@ -24,6 +24,7 @@ Figure model platform back-end
 |     Technology     |        Description       |                Official website                |
 | :----------------: | :----------------------: | :--------------------------------------------: |
 |       Vue.js       |  JavaScript Environment  |               https://vuejs.org/               |
+|     Element-UI     | Vue.js UI Component Repo |            https://element.eleme.io/           |
 |        Java        |  Java programming lanage |              https://www.java.com/             |
 |     Spring Boot    |    Java web framework    |      https://spring.io/projects/spring-boot    |
 |       MongoDB      |  Non-relational database |             https://www.mongodb.com/           |
