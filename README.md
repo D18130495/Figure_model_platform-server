@@ -16,8 +16,6 @@ Figure model platform back-end
 ### Front-end
 |     Technology     |        Description       |                Official website                |
 | :----------------: | :----------------------: | :--------------------------------------------: |
-|       React        |    Front-end framework   |               https://reactjs.org/             |
-|     Ant Design     |  React UI Component Repo |           https://ant.design/index-cn          |
 |     Ajax(Axios)    | Send asynchronous request|                                                |
 
 ### Back-end
